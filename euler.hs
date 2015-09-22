@@ -62,13 +62,24 @@ module Problems (problem_5, problem_6, problem_7, problem_8,problem_9) where
 
     findPythTriplet :: Int -> [Int]
     findPythTriplet x = head $ [[y1,y2,y3] |
-                                y1<-[1..x-2],
-                                y2<-[y1+1..x-1],
-                                y3<-[y2+1..x],
-                                y1 < y2, y2 < y3,
-                                y1 + y2 + y3 == x,
-                                y1^2 + y2^2 == y3^2
+                                m <- [1..x],
+                                n <- [1..x],
+                                m > n,
+                                triplet <- euclidsFormula m n,
+                                y1 <- triplet !! 1,
+                                y2 <- triplet !! 2,
+                                y3 <- triplet !! 3,
+                                y1^2 + y2^2 + y3^2 == x
+                                
+                                 
                                ]
+
+
+    euclidsFormula :: Int -> Int -> [Int]
+    euclidsFormula m n = [ a, b ,c]
+                         where a = m^2 - n^2
+                               b = 2 * m * n
+                               c = m^2 + n^2
                                             
 
                   
