@@ -63,5 +63,5 @@ module Problems (problem_5, problem_6, problem_7, problem_8,problem_9) where
                         (y1,y2,y3) = head $ [(y1,y2,y3) |
                                           y1 <- [1..(x `div` 2)],
                                           y2 <- [1..y1],
-                                          let c = x - y1 - y2,
-                                          y1^2 + y2^2 == c^2]
+                                          let y3 = x - y1 - y2,
+                                          y1^2 + y2^2 == y3^2]
