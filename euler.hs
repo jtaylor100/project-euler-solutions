@@ -1,4 +1,4 @@
-module Problems (problem_5, problem_6, problem_7, problem_8,problem_9) where
+module Problems () where
 
     import Data.Char
     import Data.List
@@ -29,7 +29,7 @@ module Problems (problem_5, problem_6, problem_7, problem_8,problem_9) where
     problem_7 n = primes !! n
 
     primes :: [Int]
-    primes = [x| x <- [1..] , isPrime x]
+    primes = [x| x <- [2..] , isPrime x]
 
     isPrime :: Int -> Bool
     isPrime x = filter (\a -> x `mod` a == 0) [2..primeLimit] == []
@@ -65,3 +65,7 @@ module Problems (problem_5, problem_6, problem_7, problem_8,problem_9) where
                                           y2 <- [1..y1],
                                           let y3 = x - y1 - y2,
                                           y1^2 + y2^2 == y3^2]
+
+    -- | For the inputted x, find the sum of all of the primes below x
+    problem_10 :: Int -> Int
+    problem_10 x = sum $ takeWhile (< x) primes 
