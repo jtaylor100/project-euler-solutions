@@ -76,9 +76,9 @@ module Problems () where
     -- | direction that have the greatest sum.
     problem_11 :: Direction -> Int
     problem_11 dir =  
-        maximum $ map (\(x1,x2,x3,x4) -> sum $ x1:x2:x3:x4:[]) $ numberPairs dir
+        maximum $ map (\(x1,x2,x3,x4) -> product $ x1:x2:x3:x4:[]) $ numberPairs dir
 
-    data Direction = UpDown | SideWays | Diagonal
+    data Direction = UpDown | SideWays | LeftStartDiagonal | RightStartDiagonal
 
     numberPairs :: Direction -> [(Int,Int,Int,Int)]
     numberPairs UpDown = 
@@ -89,7 +89,30 @@ module Problems () where
          let x2 = (listifyGrid !! (currentRow + 1)) !! currentCol,
          let x3 = (listifyGrid !! (currentRow + 2)) !! currentCol,
          let x4 = (listifyGrid !! (currentRow + 3)) !! currentCol] 
-    numberPairs _ = [(0,0,0,0)]
+    numberPairs SideWays =
+        [(x1,x2,x3,x4) |
+         currentRow <- [0..19],
+         currentCol <- [0..16],
+         let x1 = (listifyGrid !! currentRow) !! currentCol,
+         let x2 = (listifyGrid !! currentRow) !! (currentCol + 1),
+         let x3 = (listifyGrid !! currentRow) !! (currentCol + 2),
+         let x4 = (listifyGrid !! currentRow) !! (currentCol + 3)]
+    numberPairs LeftStartDiagonal =
+        [(x1,x2,x3,x4) |
+         currentRow <- [0..16],
+         currentCol <- [0..16],
+         let x1 = (listifyGrid !! currentRow) !! currentCol,
+         let x2 = (listifyGrid !! (currentRow + 1)) !! (currentCol + 1),
+         let x3 = (listifyGrid !! (currentRow + 2)) !! (currentCol + 2),
+         let x4 = (listifyGrid !! (currentRow + 3)) !! (currentCol + 3)]
+    numberPairs RightStartDiagonal =
+        [(x1,x2,x3,x4) |
+         currentRow <- [0..16],
+         currentCol <- [3..19],
+         let x1 = (listifyGrid !! currentRow) !! currentCol,
+         let x2 = (listifyGrid !! (currentRow + 1)) !! (currentCol - 1),
+         let x3 = (listifyGrid !! (currentRow + 2)) !! (currentCol - 2),
+         let x4 = (listifyGrid !! (currentRow + 3)) !! (currentCol - 3)]
     
     listifyGrid :: [[Int]]
     listifyGrid = map (map read) doubleListOfStrings 
