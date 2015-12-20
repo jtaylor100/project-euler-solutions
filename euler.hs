@@ -4,6 +4,7 @@ module Problems () where
     import Data.List
     import Data.Function
     import Data.String.Utils
+    import Data.Ord
     import Math.NumberTheory.Primes.Factorisation
 
     -- | Smallest positive number that can be divided  by each of the numbers
@@ -268,6 +269,14 @@ module Problems () where
                        \20849603980134001723930671666823555245252804609722\n\
                        \53503534226472524250874054075591789781264330331690"
 
-
-
-
+    problem_14 :: (Int, Int) 
+    problem_14 = maximumBy (comparing snd) collatzSeqLengths 
+        where collatzSeqLengths = [(n, colLength) |
+                                   n <- [1..1000000], 
+                                   let colLength = length (collatzSeq n)]
+ 
+    collatzSeq :: Int -> [Int] 
+    collatzSeq a
+        | a == 1 = []
+        | even a = [(a `quot` 2)] ++ (collatzSeq (a `quot` 2))
+        | odd  a = [(3*a + 1)] ++ (collatzSeq (3*a + 1))
