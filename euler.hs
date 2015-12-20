@@ -143,10 +143,16 @@ module Problems () where
     -- | Find the triangle number that has x number of divisors
     problem_12 :: Int -> Int
     problem_12 x = 
-        head $ dropWhile (\a -> not $ hasNumberOfFactors x a) triangleNumbers
+        head $ dropWhile (\a -> not $ hasGtOrEqFactors a x) triangleNumbers
+
+    hasGtOrEqFactors :: Int -> Int -> Bool
+    hasGtOrEqFactors a factorCount
+        | hasNumberOfFactors a factorCount = True
+        | factorCount >= a                 = False
+        | otherwise                        = hasGtOrEqFactors a (factorCount + 1)
 
     hasNumberOfFactors :: Int -> Int -> Bool
-    hasNumberOfFactors factorCount a = (length factorsList) == factorCount 
+    hasNumberOfFactors a factorCount = (length factorsList) == factorCount
         where factorsList = [ x | x <- [1..a], a `mod` x == 0]
 
     triangleNumbers :: [Int]
