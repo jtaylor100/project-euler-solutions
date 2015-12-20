@@ -4,6 +4,7 @@ module Problems () where
     import Data.List
     import Data.Function
     import Data.String.Utils
+    import Math.NumberTheory.Primes.Factorisation
 
     -- | Smallest positive number that can be divided  by each of the numbers
     -- | from 1..x without a remainder
@@ -146,16 +147,12 @@ module Problems () where
         head $ dropWhile (\a -> not $ hasGtOrEqFactors a x) triangleNumbers
 
     hasGtOrEqFactors :: Int -> Int -> Bool
-    hasGtOrEqFactors a factorCount
-        | hasNumberOfFactors a factorCount = True
-        | factorCount >= a                 = False
-        | otherwise                        = hasGtOrEqFactors a (factorCount + 1)
+    hasGtOrEqFactors a factorCount = numberOfFactors a >= factorCount
 
-    hasNumberOfFactors :: Int -> Int -> Bool
-    hasNumberOfFactors a factorCount = (length factorsList) == factorCount
-        where factorsList = [ x | x <- [1..a], a `mod` x == 0]
+	-- | Works out number of factors by prime factorisation,
+	-- | 2^x + 3^y + ... = a , (x+1)*(y+1)*... = factor number
+    numberOfFactors :: Int -> Int 
+    numberOfFactors a = product $ map (\(_,x) -> x+1) (factorise $ toInteger a)
 
     triangleNumbers :: [Int]
     triangleNumbers = [ x | n <- [1..] , let x = sum [1..n]] 
-
-
