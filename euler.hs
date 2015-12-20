@@ -149,8 +149,8 @@ module Problems () where
     hasGtOrEqFactors :: Int -> Int -> Bool
     hasGtOrEqFactors a factorCount = numberOfFactors a >= factorCount
 
-	-- | Works out number of factors by prime factorisation,
-	-- | 2^x + 3^y + ... = a , (x+1)*(y+1)*... = factor number
+    -- | Works out number of factors by prime factorisation,
+    -- | 2^x + 3^y + ... = a , (x+1)*(y+1)*... = factor number
     numberOfFactors :: Int -> Int 
     numberOfFactors a = product $ map (\(_,x) -> x+1) (factorise $ toInteger a)
 
