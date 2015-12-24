@@ -1,0 +1,16 @@
+-- further documentation, see http://haskell.org/cabal/users-guide/
+
+name:                projectEulerSolutions
+version:             0.1.0.0
+synopsis:            Solutions to project Euler problems
+homepage:            https://github.com/PenatcleSoft/projectEulerSolutions
+license-file:        LICENSE
+author:              Josh Taylor
+maintainer:          jtaylor.pentacle@outlook.com
+category:            Development
+build-type:          Simple
+cabal-version:       >=1.8
+
+library
+  exposed-modules:     Problems
+  build-depends:       base ==4.6.*, MissingH >= 1.3.0.1, arithmoi >= 0.4.1.3
