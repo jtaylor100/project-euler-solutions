@@ -3,9 +3,10 @@ module Problems () where
     import Data.Char
     import Data.List
     import Data.Function
-    import Data.String.Utils
+    import Data.String.Utils as S
     import Data.Ord
     import Math.NumberTheory.Primes.Factorisation
+    import Data.List.Split
 
     -- | Smallest positive number that can be divided  by each of the numbers
     -- | from 1..x without a remainder
@@ -119,7 +120,7 @@ module Problems () where
     
     listifyGrid :: [[Int]]
     listifyGrid = map (map read) doubleListOfStrings 
-        where doubleListOfStrings = map (split " ") $ lines gridOfNumbers    
+        where doubleListOfStrings = map (S.split " ") $ lines gridOfNumbers    
 
     gridOfNumbers :: String
     gridOfNumbers = "08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08\n\
@@ -280,3 +281,20 @@ module Problems () where
         | a == 1 = []
         | even a = [(a `quot` 2)] ++ (collatzSeq (a `quot` 2))
         | odd  a = [(3*a + 1)] ++ (collatzSeq (3*a + 1))
+
+
+    -- | Given a square grid with outer-edge length of x, how many different
+    -- | paths can take you from the top left vertex to bottom right?
+    problem_15 :: Integer -> Integer
+    problem_15 x = choose (2*x) x
+
+    choose :: Integer -> Integer -> Integer
+    choose x y = (factorial x) `div` ((factorial y) * (factorial (x - y))) 
+
+    factorial :: Integer -> Integer
+    factorial x = product [ xs | xs <- [1..x]]
+
+
+
+
+
