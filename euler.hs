@@ -178,7 +178,6 @@ module Problems () where
     factorial :: Integer -> Integer
     factorial x = product [ xs | xs <- [1..x]]
 
-
-
-
-
+    -- | Given a number x, find 2 ^ x and find the sum of its digits
+    problem_16 :: Int -> Int
+    problem_16 x = sum $ map digitToInt $ show (2^x)
