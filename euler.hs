@@ -181,3 +181,52 @@ module Problems () where
     -- | Given a number x, find 2 ^ x and find the sum of its digits
     problem_16 :: Int -> Int
     problem_16 x = sum $ map digitToInt $ show (2^x)
+
+    -- | Given a number x, build [1..x], write all of the numbers in words
+    -- | count the characters used and return the count
+    problem_17 :: Int -> Int
+    problem_17 x = sum
+                    $ map length
+                    $ map (stripChars " -" )
+                    $ map intToWord [1..x]
+
+    stripChars :: String -> String -> String
+    stripChars = filter . flip notElem
+
+    intToWord :: Int -> String
+    intToWord 1 = "one"
+    intToWord 2 = "two"
+    intToWord 3 = "three"
+    intToWord 4 = "four"
+    intToWord 5 = "five"
+    intToWord 6 = "six"
+    intToWord 7 = "seven"
+    intToWord 8 = "eight"
+    intToWord 9 = "nine"
+    intToWord 10 = "ten"
+    intToWord 11 = "eleven"
+    intToWord 12 = "twelve"
+    intToWord 13 = "thirteen"
+    intToWord 15 = "fifteen"
+    intToWord 18 = "eighteen"
+    intToWord 20 = "twenty"
+    intToWord 30 = "thirty"
+    intToWord 40 = "forty"
+    intToWord 50 = "fifty"
+    intToWord 60 = "sixty"
+    intToWord 70 = "seventy"
+    intToWord 80 = "eighty"
+    intToWord 90 = "ninety"
+    intToWord 1000 = "one thousand"
+    intToWord x
+    -- TEEN numbers 13..19
+        | x < 20 = intToWord (x - 10) ++ "teen"
+    -- TENS numbers 21..29, 31..39, etc up to 99
+        | x < 100 = let tensValue = (x `div` 10) * 10
+                        unitValue = x - tensValue
+                    in intToWord tensValue ++ "-" ++ intToWord unitValue
+    -- HUNDREDS numbers 100..999
+        | x `mod` 100 == 0 = intToWord (x `div` 100) ++ " hundred"
+        | x < 1000 = let hundredsValue = x `div` 100
+                         rest = x - hundredsValue * 100
+                     in intToWord hundredsValue ++ " hundred and " ++ intToWord rest
