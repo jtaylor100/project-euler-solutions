@@ -230,3 +230,18 @@ module Problems () where
         | x < 1000 = let hundredsValue = x `div` 100
                          rest = x - hundredsValue * 100
                      in intToWord hundredsValue ++ " hundred and " ++ intToWord rest
+
+    -- | For the number triangle "largeTriangle", find the greatest sum of
+    -- | numbers that form a path from the apex to the triangle bottom,
+    -- | going down a row each time
+    problem_18 :: Int
+    problem_18 = greatestPathSum $ parseTriangle biggerTriangle
+
+    greatestPathSum :: [[Int]] -> Int
+    greatestPathSum triangle = maximum $ map sum $ allPossiblePaths triangle
+
+    allPossiblePaths :: [[Int]] -> [[Int]]
+    allPossiblePaths triangle = [[1 2 3]]
+
+    parseTriangle :: String -> [[Int]]
+    parseTriangle str = map (map read) $ map (S.split " ") $ lines str
