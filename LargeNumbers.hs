@@ -1,6 +1,7 @@
 module LargeNumbers (thousandDigitNo,
                      gridOfNumbers,
                     rawNumbersString,
+                    smallerTriangle,
                     biggerTriangle) where
 
     -- Problem 8

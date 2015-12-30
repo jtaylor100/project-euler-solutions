@@ -241,7 +241,19 @@ module Problems () where
     greatestPathSum triangle = maximum $ map sum $ allPossiblePaths triangle
 
     allPossiblePaths :: [[Int]] -> [[Int]]
-    allPossiblePaths triangle = [[1 2 3]]
+    allPossiblePaths triangle
+        | (length triangle) == 1 = triangle
+        | otherwise              = map (apex :) $ possiblePaths
+        where apex          = triangle !! 0 !! 0
+              subtriR       = getSubTriangle R triangle
+              subtriL       = getSubTriangle L triangle
+              possiblePaths = allPossiblePaths subtriR ++ allPossiblePaths subtriL
+
+    data TriangleDir = L | R
+
+    getSubTriangle :: TriangleDir -> [[Int]] -> [[Int]]
+    getSubTriangle L tri =  delete [] $ map init tri
+    getSubTriangle R tri =  delete [] $ map tail tri
 
     parseTriangle :: String -> [[Int]]
     parseTriangle str = map (map read) $ map (S.split " ") $ lines str
