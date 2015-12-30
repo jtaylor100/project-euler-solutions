@@ -18,6 +18,10 @@ module Problems () where
     -- Local packages
     import LargeNumbers
 
+    -- date
+    import Data.Time
+    import Data.Time.Calendar.WeekDate
+
     -- | Smallest positive number that can be divided  by each of the numbers
     -- | from 1..x without a remainder
     problem_5 :: Int -> Int
@@ -257,3 +261,23 @@ module Problems () where
 
     parseTriangle :: String -> [[Int]]
     parseTriangle str = map (map read) $ map (S.split " ") $ lines str
+
+    -- | Find the number of Sundays in the 20th Century that fell as the first
+    -- | of the month
+    problem_19 :: Int
+    problem_19 = firstMonthSundays (fromGregorian 1901 1 1) (fromGregorian 2000 12 31)
+
+    firstMonthSundays :: Day -> Day -> Int
+    firstMonthSundays x n = length $ filter isSunday $ filter isFirstOfMonth [x..n]
+
+    isFirstOfMonth :: Day -> Bool
+    isFirstOfMonth day
+        | dayOfMonth == 1 = True
+        | otherwise       = False
+        where (_,_,dayOfMonth) = toGregorian day
+
+    isSunday :: Day -> Bool
+    isSunday day
+        | weekDay == 7 = True
+        | otherwise    = False
+        where (_,_,weekDay) = toWeekDate day
