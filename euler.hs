@@ -281,3 +281,7 @@ module Problems () where
         | weekDay == 7 = True
         | otherwise    = False
         where (_,_,weekDay) = toWeekDate day
+
+    -- | Find x! and find the sum of its digits
+    problem_20 :: Integer -> Int
+    problem_20 x = sum $ map digitToInt $ show $ factorial x
